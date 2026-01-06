@@ -26,9 +26,43 @@ This script sends server-wide broadcasts (like maintenance warnings) via RCON an
 
 ---
 
+## 🔧 Requirements
+
+- Windows OS / Server 2016+
+- PowerShell 5.1 or newer
+- ARK server(s) with RCON enabled
+- `mcrcon.exe` available on the system (update `$mcrconPath`)
+- Write access to the folder containing the script (optional logs)
+
+---
+
+## 🚀 Setup with Windows Task Scheduler
+
+1. Open **Task Scheduler** → **Create Task**.
+2. **General Tab**:
+   - Name: `RconBroadcaster`
+   - Run whether user is logged on or not
+   - Run with highest privileges
+3. **Triggers Tab**:
+   - Choose **Daily**, **Weekly**, or **At startup** depending on your schedule
+4. **Actions Tab**:
+   - Action: **Start a program**
+   - Program/script: `powershell.exe`
+   - Arguments:
+     ```
+     -ExecutionPolicy Bypass -File "C:\Path\To\Your\Script\RconBroadcaster.ps1"
+     ```
+5. **Conditions & Settings Tabs**:
+   - Optional settings like **Wake the computer to run task**
+6. Click **OK** and enter your credentials if required.
+
+✅ Task Scheduler will now automatically run your broadcast script on the chosen schedule.
+
+---
+
 ## 📁 Server Configuration
 
-The script supports multiple servers configured in an array. Example:
+The script supports multiple servers configured in an array:
 
 ```powershell
 $servers = @(
@@ -50,41 +84,8 @@ $servers = @(
         RconPort = 27022
         RconPassword = "YourRconPasswordHere"
     }
-    # Add more servers by duplicating the block above
 )
 
-## 🔧 Requirements
-
-- Windows OS / Server 2016+  
-- PowerShell 5.1 or newer  
-- ARK server(s) with RCON enabled  
-- `mcrcon.exe` available on the system (update `$mcrconPath`)  
-- Write access to the folder containing the script (optional logs)  
-
----
-
-## 🚀 Setup with Windows Task Scheduler
-
-1. Open **Task Scheduler** → **Create Task**.  
-2. **General Tab**:  
-   - Name: `RconBroadcaster`  
-   - Run whether user is logged on or not  
-   - Run with highest privileges  
-3. **Triggers Tab**:  
-   - Choose **Daily**, **Weekly**, or **At startup** depending on your schedule  
-4. **Actions Tab**:  
-   - Action: **Start a program**  
-   - Program/script: `powershell.exe`  
-   - Arguments:  
-     ```
-     -ExecutionPolicy Bypass -File "C:\Path\To\Your\Script\RconBroadcaster.ps1"
-     ```  
-5. **Conditions & Settings Tabs**: Optional settings like “Wake the computer to run task”  
-6. Click **OK** and enter your credentials if required.
-
-✅ Task Scheduler will now automatically run your broadcast script on the chosen schedule.
-
----
 
 ## ⚠️ Important Notes
 
